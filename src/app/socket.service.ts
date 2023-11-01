@@ -8,7 +8,7 @@ export class SocketService {
   socket: Socket;
 
   constructor() {
-    this.socket = io('http://localhost:3000', {
+    this.socket = io('https://backendchat-qvg9.onrender.com', {
       transports: ['websocket'],
     });
     this.socket.on('connect', () => {
