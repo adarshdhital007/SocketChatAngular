@@ -68,4 +68,8 @@ export class AppComponent {
   isMessageEditable(message: any) {
     return message.userId === this.socketService.socket.id;
   }
+
+  isMessageFromCurrentUser(message: any): boolean {
+    return message.userId === this.socketService.socket.id;
+  }
 }
