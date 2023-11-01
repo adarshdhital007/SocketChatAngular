@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="row justify-content-center align-items-center vh-100 mt-5">
+    <div class="col-md-8">
+      <div class="card custom-card">
+        <div class="card-header custom-card-header">
+          <h5 class="card-title">Socket Chat Angular</h5>
+        </div>
+
+        <div class="card-body custom-card-body">
+          <div *ngIf="!hasUsername">
+            <!-- Username input form -->
+            <div class="form-group">
+              <input
+                [(ngModel)]="usernameInput"
+                class="form-control"
+                placeholder="Enter your username"
+                (keyup.enter)="setUsername()"
+              />
+            </div>
+            <button (click)="setUsername()" class="btn btn-primary btn-block">
+              Set Username
+            </button>
+            <div *ngIf="!usernameSet" class="text-danger mt-2">
+              Username is not unique. Please choose another username.
+            </div>
+          </div>
+          <div *ngIf="hasUsername" style="max-height: 700px; overflow-y: auto;">
+            <!-- Chat messages container -->
+            <div class="chat-messages">
+              <div *ngFor="let msg of messages; let i = index" class="chat-message">
+                <div
+                  class="message"
+                  [ngClass]="{
+                    'message-right': isMessageEditable(msg),
+                    'message-left': !isMessageEditable(msg)
+                  }"
+                >
+                  {{ msg.username }}: {{ msg.text }}
+                  <button
+                    *ngIf="isMessageEditable(msg)"
+                    class="btn btn-link btn-sm"
+                    (click)="deleteMessage(msg.id, msg.userId)"
+                  >
+                    Unsend
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Message input form -->
+            <div class="input-container">
+              <div class="input-group mt-3">
+                <input
+                  [(ngModel)]="message"
+                  (keyup.enter)="sendMessage()"
+                  class="form-control"
+                  placeholder="Type a message"
+                />
+                <div class="input-group-append">
+                  <button
+                    (click)="sendMessage()"
+                    class="btn-rounded btn-primary"
+                    [disabled]="message.length === 0"
+                  >
+                    Send
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
